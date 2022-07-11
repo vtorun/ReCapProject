@@ -8,6 +8,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Business.Constants;
+using Business.ValidationRules.FluentValidation;
+using static Core.Aspects.Autofac.Validation;
 
 namespace Business.Concrete
 {
@@ -19,7 +21,7 @@ namespace Business.Concrete
         {
             _rentalDal = rentalDal;
         }
-
+        [ValidationAspect(typeof(RentalValidator))]
         public IResult Add(Rental rental)
         {
             //var result = _rentalDal.Get(r => r.CarId == rental.CarId && r.ReturnDate == null);
@@ -62,6 +64,9 @@ namespace Business.Concrete
             }
         }
 
+
+
+        [ValidationAspect(typeof(RentalValidator))]
         public IResult Update(Rental rental)
         {
             throw new NotImplementedException();

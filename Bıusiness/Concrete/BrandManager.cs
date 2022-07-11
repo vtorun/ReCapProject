@@ -29,7 +29,7 @@ namespace Business.Concrete
         [ValidationAspect(typeof(BrandValidator))]
         public IResult Add(Brand brand)
         {
-            
+
             _brandDal.Add(brand);
             return new SuccessResult(Messages.Added);
         }
@@ -66,41 +66,12 @@ namespace Business.Concrete
             }
         }
 
+
+        [ValidationAspect(typeof(BrandValidator))]
         public IResult Update(Brand brand)
         {
             _brandDal.Update(brand);
             return new SuccessResult(Messages.Updated);
         }
-
-        //public void Add(Brand brand)
-        //{
-        //    _brandDal.Add(brand);
-        //    Console.WriteLine("Kayıt Eklendi");
-        //}
-
-        //public void Delete(Brand brand)
-        //{
-        //    _brandDal.Delete(brand);
-        //    Console.WriteLine("Kayıt Silindi");
-        //}
-
-        //public IDataResult<List<Brand>> GetAll()
-        //{
-        //    //return ErrorDataResult<List<Brand>>
-        //    return new SuccessDataResult<List<Brand>>(_brandDal.GetAll(), Messages.CarsListed);
-        //}
-
-        //public IDataResult<List<Brand>> GetByBrandId(int brandId)
-        //{
-        //    //return ErrorDataResult<List<Brand>>
-        //    return new SuccessDataResult<List<Brand>>(_brandDal.GetAll(b => b.BrandId == brandId), "Marka Listelendi");
-        //}
-
-        //public void Update(Brand brand)
-        //{
-        //    //yeni bilgiler burda yazılır.
-        //    //brand.BrandName = "Toyota";
-        //    _brandDal.Update(brand);
-        //}
     }
 }

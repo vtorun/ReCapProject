@@ -1,5 +1,6 @@
 ﻿using Business.Abstract;
 using Business.Constants;
+using Business.ValidationRules.FluentValidation;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
@@ -9,6 +10,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static Core.Aspects.Autofac.Validation;
 
 namespace Business.Concrete
 {
@@ -21,25 +23,17 @@ namespace Business.Concrete
             _carDal = carDal;
         }
 
+        [ValidationAspect(typeof(CarValidator))]
         public IResult Add(Car car)
         {
-            if (car.Description.Length > 2 && car.DailyPrice > 0)
-
-            {
-                _carDal.Add(car);
-                return new SuccessResult("Ürün Eklendi");
-            }
-
-            else
-            {
-                return new ErrorResult(Messages.CarAdded);
-            }
+            _carDal.Add(car);
+            return new SuccessResult("Ürün Eklendi");
         }
 
         public IResult Delete(Car car)
         {
             _carDal.Delete(car);
-            return new Result(true);
+            return new SuccessResult("Ürün Silindi");
         }
 
         public IDataResult<List<Car>> GetAll()
@@ -89,7 +83,7 @@ namespace Business.Concrete
         {
             return new SuccessDataResult<List<Car>>(_carDal.GetAll(p => p.DailyPrice >= min && p.DailyPrice <= max));
         }
-
+        [ValidationAspect(typeof(CarValidator))]
         public IResult Update(Car car)
         {
             //yeni bilgiler
