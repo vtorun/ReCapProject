@@ -2,6 +2,7 @@
 using DataAccess.Concrete.EntityFramework;
 using DataAccess.Concrete.InMemory;
 using Entities.Concrete;
+using Microsoft.AspNetCore.Http;
 
 //CarManager carManager = new CarManager(new EfCarDal());
 //foreach (var car in carManager.GetCarDetails().Data)
@@ -18,16 +19,19 @@ using Entities.Concrete;
 //    Console.WriteLine(color.ColorId + " " + color.ColorName);
 //}
 
-RentalManager rentalManager = new RentalManager(new EfRentalDal());
+//RentalManager rentalManager = new RentalManager(new EfRentalDal());
 ////Rental rental = new Rental();
 ////rental.CarId = 2;
 ////rental.CustomerId = 3;
 ////rental.RentDate = DateTime.Now.Date;
 ////rentalManager.Add(rental);
 
-foreach (var item in rentalManager.GetAll().Data)
-{
-    Console.WriteLine(item.CarId);
-}
+//foreach (var item in rentalManager.GetAll().Data)
+//{
+//    Console.WriteLine(item.CarId);
+//}
+
+
+
 
 
