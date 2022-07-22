@@ -19,6 +19,5 @@ namespace Business.Constants
         public const string Listed = "Data başarıyla listelendi";
         public static string CarsListed = "Arabalar Listelendi";
         public static string NotGetAll = "Listeleme Başarısız";
-        public static string ImageLimitForThisCarHasBeenExceeded = "Bu araba için daha fazla resim eklenemez";
     }
 }
