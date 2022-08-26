@@ -1,6 +1,8 @@
-﻿using System;
+﻿using Core.Entities.Concrete;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -19,5 +21,12 @@ namespace Business.Constants
         public const string Listed = "Data başarıyla listelendi";
         public static string CarsListed = "Arabalar Listelendi";
         public static string NotGetAll = "Listeleme Başarısız";
+        public static string AuthorizationDenied = "Yetkiniz Yok.";
+        public static string UserRegistered = "Kayıt oldu.";
+        public static string UserNotFound = "Kullanıcı bulunamadı.";
+        public static string PasswordError = "Parola hatalı.";
+        public static string SuccessfulLogin = "Başarılı giriş.";
+        public static string UserAlreadyExists = "Kullanıcı mevcut.";
+        public static string AccessTokenCreated="Token oluşturuldu.";
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Business.Abstract;
 using Business.Constants;
 using Business.ValidationRules.FluentValidation;
+using Core.Entities.Concrete;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using DataAccess.Concrete.EntityFramework;
@@ -22,59 +23,20 @@ namespace Business.Concrete
         {
             _userDal = userDal;
         }
-        [ValidationAspect(typeof(UserValidator))]
-        public IResult Add(User user)
+
+        public List<OperationClaim> GetClaims(User user)
+        {
+            return _userDal.GetClaims(user);
+        }
+
+        public void Add(User user)
         {
             _userDal.Add(user);
-            return new SuccessResult(Messages.Added);
-
         }
 
-        public IResult Delete(User user)
+        public User GetByMail(string email)
         {
-            _userDal.Delete(user);
-            try
-            {
-                return new SuccessResult(Messages.Deleted);
-            }
-            catch (Exception)
-            {
-                return new ErrorResult(Messages.NotDeleted);
-            }
-        }
-
-        public IDataResult<List<User>> GetAll()
-        {
-            try
-            {
-                return new SuccessDataResult<List<User>>(_userDal.GetAll());
-            }
-            catch (Exception)
-            {
-
-                return new ErrorDataResult<List<User>>(_userDal.GetAll());
-            }
-        }
-
-        public IDataResult<List<User>> GetByUserId(int userId)
-        {
-            try
-            {
-                return new SuccessDataResult<List<User>>(_userDal.GetAll(u => u.UserId == userId));
-            }
-            catch (Exception)
-            {
-
-                return new ErrorDataResult<List<User>>(_userDal.GetAll(u => u.UserId == userId));
-            }
-        }
-
-
-        [ValidationAspect(typeof(UserValidator))]
-        public IResult Update(User user)
-        {
-            _userDal.Update(user);
-            return new SuccessResult(Messages.Updated);
+            return _userDal.Get(u => u.Email == email);
         }
     }
 }
