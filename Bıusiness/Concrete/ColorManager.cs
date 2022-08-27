@@ -1,4 +1,5 @@
 ﻿using Business.Abstract;
+using Business.BusinessAspects.Autofac;
 using Business.Constants;
 using Business.ValidationRules.FluentValidation;
 using Core.Utilities.Results;
@@ -38,6 +39,7 @@ namespace Business.Concrete
             return new SuccessResult(Messages.Deleted);
         }
 
+        [SecuredOperation("car.add,admin,user")]
         public IDataResult<List<Color>> GetAll()
         {
             try

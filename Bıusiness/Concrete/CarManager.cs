@@ -53,12 +53,12 @@ namespace Business.Concrete
             }
 
         }
-
+        [SecuredOperation("car.getall,admin")]
         public IDataResult<List<Car>> GetByCarId(int carId)
         {
             return new SuccessDataResult<List<Car>>(_carDal.GetAll(p => p.CarId == carId));
         }
-
+        [SecuredOperation("car.getall,admin")]
         public IDataResult<List<CarDetailDto>> GetCarDetails()
         {
             //try
@@ -72,17 +72,17 @@ namespace Business.Concrete
             //}
 
         }
-
+        [SecuredOperation("car.getall,admin")]
         public IDataResult<List<Car>> GetCarsByBrandId(int id)
         {
             return new SuccessDataResult<List<Car>>(_carDal.GetAll(c => c.BrandId == id));
         }
-
+        [SecuredOperation("car.getall,admin")]
         public IDataResult<List<Car>> GetCarsByColorId(int id)
         {
             return new SuccessDataResult<List<Car>>(_carDal.GetAll(p => p.ColorId == id));
         }
-
+        [SecuredOperation("car.getall,admin")]
         public IDataResult<List<Car>> GetCarsByDailyPrice(decimal min, decimal max)
         {
             return new SuccessDataResult<List<Car>>(_carDal.GetAll(p => p.DailyPrice >= min && p.DailyPrice <= max));
