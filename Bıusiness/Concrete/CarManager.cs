@@ -2,6 +2,9 @@
 using Business.BusinessAspects.Autofac;
 using Business.Constants;
 using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Caching;
+using Core.Aspects.Autofac.Performance;
+using Core.Aspects.Autofac.Transaction;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
@@ -26,6 +29,8 @@ namespace Business.Concrete
 
         [SecuredOperation("car.add,admin")]
         [ValidationAspect(typeof(CarValidator))]
+        [CacheRemoveAspect("ICarService.Get")]
+        [TransactionScopeAspect]
         public IResult Add(Car car)
         {
             _carDal.Add(car);
@@ -34,12 +39,17 @@ namespace Business.Concrete
 
 
         [SecuredOperation("car.delete,admin")]
+        [CacheRemoveAspect("ICarService.Get")]
+        [TransactionScopeAspect]
         public IResult Delete(Car car)
         {
             _carDal.Delete(car);
             return new SuccessResult("Ürün Silindi");
         }
+
+        [CacheAspect]
         [SecuredOperation("car.getall,admin")]
+        [PerformanceAspect(7)]
         public IDataResult<List<Car>> GetAll()
         {
             try
@@ -53,11 +63,13 @@ namespace Business.Concrete
             }
 
         }
+
         [SecuredOperation("car.getall,admin")]
         public IDataResult<List<Car>> GetByCarId(int carId)
         {
             return new SuccessDataResult<List<Car>>(_carDal.GetAll(p => p.CarId == carId));
         }
+
         [SecuredOperation("car.getall,admin")]
         public IDataResult<List<CarDetailDto>> GetCarDetails()
         {
@@ -72,16 +84,19 @@ namespace Business.Concrete
             //}
 
         }
+
         [SecuredOperation("car.getall,admin")]
         public IDataResult<List<Car>> GetCarsByBrandId(int id)
         {
             return new SuccessDataResult<List<Car>>(_carDal.GetAll(c => c.BrandId == id));
         }
+
         [SecuredOperation("car.getall,admin")]
         public IDataResult<List<Car>> GetCarsByColorId(int id)
         {
             return new SuccessDataResult<List<Car>>(_carDal.GetAll(p => p.ColorId == id));
         }
+
         [SecuredOperation("car.getall,admin")]
         public IDataResult<List<Car>> GetCarsByDailyPrice(decimal min, decimal max)
         {
@@ -91,6 +106,8 @@ namespace Business.Concrete
 
         [SecuredOperation("car.update,admin")]
         [ValidationAspect(typeof(CarValidator))]
+        [CacheRemoveAspect("ICarService.Get")]
+        [TransactionScopeAspect]
         public IResult Update(Car car)
         {
             //yeni bilgiler
